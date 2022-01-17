@@ -1,7 +1,7 @@
 # Token time vault
 ## Consensys Academy blockchain developer bootcamp final project
 
-ERC-20, ERC-721 and Ether vault, that can only be accessed by the key owner, at a later date. The creator stores the assets, sets a beneficiary and the unlock date. The beneficiary gets an NFT representig a key to the vault. The assets are displayed in a vault page, with a countdown to the unlock date. The assets can be accessed by the owner of the NFT key at the unlock date or later.
+ERC-20, ERC-721 and Ether vaults, that can only be accessed by the key owner, at a later date. The creator stores the assets, sets a beneficiary and the unlock date. The beneficiary gets an NFT representig a key to the vault. The assets are displayed in a vault page, with a countdown to the unlock date. The assets can be accessed by the owner of the NFT key at the unlock date or later.
 
 ### Functionality
 

@@ -1,89 +1,241 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.6.3/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.6.3/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.6.3/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.6.3/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.6.3/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.6.3/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/9.6.3/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.6.3/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.6.3/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.6.3/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
+    <title>Token Vaults</title>
+
+		<style>
+			.mainButton {
+				border-width: medium;
+    		font-weight: 700;
+				border-radius: 0;
+			}
+
+			#vaultsNavButton {
+				color: #212529;
+    		font-weight: 500;
+			}
+
+			#title {
+				font-size: xxx-large;
+			}
+
+			.fw-600 {
+				font-weight: 600;
+			}
+
+			a {
+    			color: #000000;
+			}
+
+			.text-muted {
+				font-size: 1.25rem;
+    			font-weight: normal;
+			}
+
+			.wrap {
+				overflow-wrap: break-word;
+			}
+
+			.navActions {
+				z-index: 0;
+				display: flex;
+			}
+
+			.lead {
+				margin-top: 2rem;
+    			margin-bottom: 2rem;
+			}
+
+			@media (max-width: 576px) {
+				.wideOnSm {
+					width: 100%;
+					margin-top: 0.5rem;
+				}
+			}
+
+			@media (min-width: 768px) {
+				.navbar-brand.abs {
+					position: absolute;
+					width: 100%;
+					left: 0;
+					text-align: center;
+				}
+			}
+
+			@media (max-width: 449px) {
+				.xs-centered {
+					width: 100%;
+    				text-align: center;
+				}
+			}
     </style>
+	
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#000000">
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+		<nav class="navbar sticky-top navbar-light" style="background-color: #ffffff;">
+			<form class="container-fluid">
+				<span class="navbar-brand abs xs-centered">
+					<span style="vertical-align: bottom;">Token Vaults</span>
+				</span>
+				<div class="ms-md-auto navActions xs-centered">
+					<a href="javascript:;" id="vaultsNavButton" type="button" onClick="myVaultsClicked()" class="nav-link me-2 d-none me-auto">My Keys</a>
+					<button id="walletNavButton" class="btn btn-outline-dark mainButton ms-md-auto wideOnSm" type="button" onClick="walletButtonClicked()">🔌 Connect Ethereum wallet</button>
+				</div>
+			</form>
+		</nav>
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col-lg-8">
+					<h1 id="title">Token Vaults</h1>
+					<p class="lead">
+						ERC-20, ERC-721 and Ether vault, that can only be accessed by the key owner, at a later date.
+					</p>
+					<button id="createButton" class="btn btn-dark mainButton wideOnSm" onClick="createVault()">Connect an Ethereum wallet to create a vault</button>
+					<p id="errorMessage" class="mt-2" style="color: red;"></p>
+				</div>
+			</div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+			<div class="row mt-5 justify-content-md-center">
+				<div class="col-lg-8">
+					<h2>Tokens and ETH vaults</h2>
+					<h5 class="wrap">
+						<small class="text-muted">ERC-20, ERC-721 and Ether vaults, that can only be accessed by the key owner, at a later date. The creator stores the assets, sets a beneficiary and the unlock date. The beneficiary gets an NFT representig a key to the vault. The assets are displayed in a vault page, with a countdown to the unlock date. The assets can be accessed by the owner of the NFT key at the unlock date or later.</small>
+					</h5>
+				</div>
+			</div>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e: any) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
+			<div class="row mt-5 justify-content-md-center">
+				<div class="col-lg-8">
+          <h2>Create a vault</h2>
+					<div class="mb-3">
+						<label for="beneficiary" class="form-label"><h5>Beneficiary</h5></label>
+						<div class="input-group has-validation">
+							<input type="text" class="form-control" id="beneficiaryInput" aria-describedby="beneficiaryHelp" maxlength="42" placeholder="Ethereum address 0x..." required>
+							<div class="invalid-feedback">
+								Please enter a valid Ethereum address
+							</div>
+						</div>
+					</div>
+          <div class="mb-3">
+						<label for="timestamp" class="form-label"><h5>Unlock timestamp (Unix timestamp in seconds)</h5></label>
+						<div class="input-group has-validation">
+							<input type="number" class="form-control" id="timestampInput" aria-describedby="timestampHelp" maxlength="20" placeholder="12312312312" required>
+							<div class="invalid-feedback">
+								Please enter a valid timestamp (Unix timestamp in seconds), greater than current timestamp
+							</div>
+						</div>
+					</div>
+          <div class="mb-3">
+						<label for="eth" class="form-label"><h5>ETH amount to store (optional)</h5></label>
+						<div class="input-group has-validation">
+							<input type="number" class="form-control" id="ethInput" aria-describedby="ethHelp" maxlength="42" placeholder="0.1" min="0">
+							<div class="invalid-feedback">
+								Please enter a valid Ether amount
+							</div>
+						</div>
+					</div>
+          <h4 class="mt-5">Optional fields, must pre approve vault contract address: 0xeE48262492F20DF1CE5227fFc4677A8312a2d52d</h4>
+          <div class="mb-3">
+						<label for="erc20Contracts" class="form-label"><h5>ERC-20 tokens</h5></label>
+						<div class="input-group has-validation">
+							<input type="text" class="form-control" id="erc20ContractsInput" aria-describedby="erc20ContractsHelp" placeholder='0x123,0x456'>
+							<div class="invalid-feedback">
+								Please enter a valid token contract addresses array
+							</div>
+						</div>
+					</div>
+          <div class="mb-3">
+						<label for="erc20Amounts" class="form-label"><h5>ERC-20 token amounts (Using token's decimal places eg: 1 token with 18 decimals would be 1000000000000000000)</h5></label>
+						<div class="input-group has-validation">
+							<input type="text" class="form-control" id="erc20AmountsInput" aria-describedby="erc20AmountsHelp" placeholder='1,2'>
+							<div class="invalid-feedback">
+								Please enter a valid token amounts array
+							</div>
+						</div>
+					</div>
+          <div class="mb-3">
+						<label for="erc721Contracts" class="form-label"><h5>ERC-721 tokens</h5></label>
+						<div class="input-group has-validation">
+							<input type="text" class="form-control" id="erc721ContractsInput" aria-describedby="erc721ContractsHelp" placeholder='0xA123,0xB456,0xC789'>
+							<div class="invalid-feedback">
+								Please enter a valid token contract addresses array
+							</div>
+						</div>
+					</div>
+          <div class="mb-3">
+						<label for="erc721Ids" class="form-label"><h5>ERC-721 token ids</h5></label>
+						<div class="input-group has-validation">
+							<input type="text" class="form-control" id="erc721IdsInput" aria-describedby="erc721IdsHelp" placeholder='idA1,idA2|idB1|idC1,idC2,idC3'>
+							<div class="invalid-feedback">
+								Please enter a valid token ids array
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-outline-dark mainButton wideOnSm mb-5" onClick="createVault()">Create Vault</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="toast-container position-fixed top-0 end-0 p-3 mt-5" style="z-index: 5">
+			<div id="mintingToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+				<div class="toast-header">																			<strong class="me-auto" style="color: #212529;">Creating</strong>
+				</div>
+				<div class="toast-body">
+					Now creating your Vault. Please wait...
+					<div class="spinner-border spinner-border-sm" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+					<div class="mt-2 pt-2 border-top">
+						<a id="etherscanLink1" href="" class="btn btn-outline-dark btn-sm mainButton" role="button" target="_blank">View on Etherscan</a>
+					</div>
+			  </div>
+			</div>
+		  
+			<div id="mintingDoneToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+			  <div class="toast-header">
+					<strong class="me-auto" style="color: #212529;">Done</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			  </div>
+			  <div class="toast-body">
+					Vault successfully created!
+					<div class="mt-2 pt-2 border-top">
+						<a id="etherscanLink2" href="" class="btn btn-outline-dark btn-sm mainButton" role="button" target="_blank">View on Etherscan</a>
+					</div>
+			  </div>
+			</div>
+		</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+	<script src="js/web3.min.js"></script>
+	<script src="js/TokenVaultsRinkebyABI.js"></script>
+	<script src="js/index.js"></script>
+
+	<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDv7p3tn1MCnk8Fqkw23Wz8_NzPcJrfqAc",
+      authDomain: "tokenvaults.firebaseapp.com",
+      projectId: "tokenvaults",
+      storageBucket: "tokenvaults.appspot.com",
+      messagingSenderId: "901928499506",
+      appId: "1:901928499506:web:2655b27431dd36ddde7f2b",
+      measurementId: "G-R805369FGD"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
   </body>
 </html>
