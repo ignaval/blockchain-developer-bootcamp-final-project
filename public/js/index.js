@@ -159,6 +159,25 @@ function requestAddresses() {
 	}
 }
 
+function getVaultData() {
+	const vaultId = $("infoVaultIdInput").value;
+
+	if (vaultId.length == 0) {
+		$("infoVaultIdInput").classList.add('is-invalid')
+		return
+	} else {
+		$("infoVaultIdInput").classList.remove('is-invalid')
+	}
+
+	vaultsContract.methods.vaultData(vaultId).call({}, function(error, result){
+		if (error) {
+			$("vaultData").innerHTML = "Error: " + error.message
+		} else {
+			$("vaultData").innerHTML = "ERC-20 contracts, ERC-20 token amounts, ERC-721 contracts, ERC-721 token ids, ETH amount in wei, creator, unlock timestamp, state (0 created, 1 withdrawn): \n\n" + result
+		}
+	})
+}
+
 function claimVaultAssets() {
 	const vaultId = $("vaultIdInput").value;
 

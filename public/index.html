@@ -113,6 +113,23 @@
 
       <div class="row mt-5 justify-content-md-center">
 				<div class="col-lg-8">
+					<h2>Get vault data</h2>
+					<div class="mb-3">
+						<label for="infoVaultId" class="form-label"><h5>Vault id</h5></label>
+						<div class="input-group has-validation">
+							<input type="number" class="form-control" id="infoVaultIdInput" aria-describedby="infoVaultIdHelp" maxlength="42" placeholder="123" required>
+							<div class="invalid-feedback">
+								Please enter a valid vault id
+							</div>
+						</div>
+					</div>
+          <button class="btn btn-outline-dark mainButton wideOnSm mb-5" onClick="getVaultData()">Get Vault Data</button>
+          <p id="vaultData" class="mt-2" style="color: gray;"></p>
+				</div>
+			</div>
+
+      <div class="row mt-5 justify-content-md-center">
+				<div class="col-lg-8">
 					<h2>Claim assets in a vault</h2>
 					<div class="mb-3">
 						<label for="vaultId" class="form-label"><h5>Vault id</h5></label>
