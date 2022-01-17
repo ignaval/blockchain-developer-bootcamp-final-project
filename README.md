@@ -14,9 +14,29 @@ ERC-20, ERC-721 and Ether vaults, that can only be accessed by the key owner, at
 
 ### URL
 
-Project accessible at tokenvaults.xyz
+Project accessible at https://tokenvaults.web.app/
 
 ### Directory structure
+
+- contracts: Contains Solidity contracts used for testing and the main contract: TokenVaults.sol.
+- migrations: Truffle migrations for testing locally and deployment.
+- node_modules: Project dependencies, mainly Open Zeppelin contracts.
+- public: Simple web site for contract interaction. Uses Bootstrap CSS.
+- test: Smart contract unit tests.
+
+### Installing dependencies
+
+Run `npm install`.
+
+### Running tests
+
+Run `truffle test`.
+
+### Running the project locally
+
+Run `firebase emulators:start`, or just host `public.index.html` in a local server.
+The project is already using the deployed version of the smart contract on Rinkeby (at 0xeE48262492F20DF1CE5227fFc4677A8312a2d52d).
+No Infura (or similar) credentials needed, just have MetaMask installed when accessing index.html.
 
 ### Ethereum account for NFT certificate
 

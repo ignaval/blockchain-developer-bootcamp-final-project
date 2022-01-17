@@ -1,9 +1,10 @@
 {
   "dependencies": {
-    "@openzeppelin/contracts": "^4.4.0",
-    "firebase": "^9.6.3"
+    "@openzeppelin/contracts": "^4.4.0"
   },
   "devDependencies": {
-    "@openzeppelin/test-helpers": "^0.5.15"
+    "@openzeppelin/test-helpers": "^0.5.15",
+    "firebase": "^9.6.3",
+    "truffle": "^5.4.29"
   }
 }
