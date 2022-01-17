@@ -16,6 +16,10 @@ ERC-20, ERC-721 and Ether vaults, that can only be accessed by the key owner, at
 
 Project accessible at https://tokenvaults.web.app/
 
+### Screencast links
+Part 1: https://www.loom.com/share/58279d8f7dec4d2ba4219290e0dea804
+Part 2: https://www.loom.com/share/a632791681624eccbc3775969dc97209
+
 ### Directory structure
 
 - contracts: Contains Solidity contracts used for testing and the main contract: TokenVaults.sol.
