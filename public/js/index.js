@@ -159,6 +159,47 @@ function requestAddresses() {
 	}
 }
 
+function claimVaultAssets() {
+	const vaultId = $("vaultIdInput").value;
+
+	if (vaultId.length == 0) {
+		$("vaultIdInput").classList.add('is-invalid')
+		return
+	} else {
+		$("vaultIdInput").classList.remove('is-invalid')
+	}
+
+	claimVaultAssetsCall(vaultId)
+}
+
+async function claimVaultAssetsCall(vaultId) {
+	console.log(vaultId)
+	const claimVaultAssetsMethod = vaultsContract.methods.withdrawAssets(vaultId)
+	let options = {
+		from: walletAddress
+	}
+
+	try {
+		const gasEstimate = await claimVaultAssetsMethod.estimateGas(options)
+
+		options = {
+			...options,
+			gas: parseInt(1.2 * gasEstimate)
+		}
+
+		claimVaultAssetsMethod.send(options, function(error, result){
+			if (!error) {
+				trackClaiming(result)
+			} else {
+				handleError(error)
+			}
+		});
+  	}
+  	catch (error) {
+		handleError(error)
+  	}
+}
+
 function createVault() {
 	$("errorMessage").innerHTML = ""
 
@@ -240,9 +281,25 @@ async function createVaultCall(erc20TokenAddresses, erc20TokenAmounts, erc721Tok
   	}
 }
 
+function trackClaiming(claimTxHash) {
+	$("etherscanLink1").setAttribute("href", `https://rinkeby.etherscan.io/tx/${claimTxHash}`)
+	$("etherscanLink2").setAttribute("href", `https://rinkeby.etherscan.io/tx/${claimTxHash}`)
+	$("inProgressToastMessage").innerHTML = "Claiming vault assets..."
+	$("doneToastMessage").innerHTML = "Vault assets claimed!"
+	mintingToast.show()
+
+	confirmEtherTransaction(claimTxHash, 3, () => {
+		mintingToast.hide()
+		mintingDoneToast.show()
+		updateUIFor(walletAddress)
+	})
+}
+
 function trackCreation(mintTxHash) {
 	$("etherscanLink1").setAttribute("href", `https://rinkeby.etherscan.io/tx/${mintTxHash}`)
 	$("etherscanLink2").setAttribute("href", `https://rinkeby.etherscan.io/tx/${mintTxHash}`)
+	$("inProgressToastMessage").innerHTML = "creating your Vault. Please wait..."
+	$("doneToastMessage").innerHTML = "Vault successfully created!"
 	mintingToast.show()
 
 	confirmEtherTransaction(mintTxHash, 3, () => {
